@@ -1,0 +1,18 @@
+{
+  "name": "dom-simple",
+  "set": "local",
+  "source": ".psc-package",
+  "depends":
+    [ "arrays"
+    , "effect"
+    , "ffi-simple"
+    , "dom-simple"
+    , "reactix"
+    , "functions"
+    , "nullable"
+    , "prelude"
+    , "psci-support"
+    , "spec"
+    , "spec-mocha"
+    , "unsafe-coerce" ]
+}
