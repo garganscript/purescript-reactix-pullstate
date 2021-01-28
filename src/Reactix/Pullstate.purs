@@ -32,11 +32,11 @@ foreign import _store :: forall s. s -> Store s
 -- |    - new: new value of state
 -- |    - old: old value of state
 -- |    - allState: the whole state of the store
-subscribe :: forall s t. Store s -> (s -> t) -> (t -> t -> s -> Effect Unit) -> Hooks (Effect Unit)
-subscribe s f l = hook $ \_ -> pure $ runFn3 _subscribe s f (mkEffectFn3 l')
+subscribe :: forall s t. Store s -> (s -> t) -> (t -> t -> s -> Effect Unit) -> Effect (Effect Unit)
+subscribe s f l = runEffectFn3 _subscribe s f (mkEffectFn3 l')
   where l' new all old = l new old all
 
-foreign import _subscribe :: forall s t. Fn3 (Store s) (s -> t) (EffectFn3 t s t Unit) (Effect Unit)
+foreign import _subscribe :: forall s t. EffectFn3 (Store s) (s -> t) (EffectFn3 t s t Unit) (Effect Unit)
 
 -- | Update the value in the store through an effect function which mutates its argument
 update :: forall s. Store s -> (s -> Effect Unit) -> Effect Unit
